@@ -1,0 +1,30 @@
+.viewSwitch {
+    width: 7rem;
+    height: 3rem;
+
+    & .switchBlock {
+        width: 3rem;
+        height: 2rem;
+        
+        &.listView {
+        left: 0.5rem;
+        }
+
+        &.gridView {
+            left: 3.5rem;
+        }
+    }
+
+    & .switchIcon {
+        top: 0.8rem; 
+
+        &.listView {
+            left: 1.35rem;
+        }
+
+        &.gridView {
+            left: 4.35rem;
+        }
+    }
+}
+
