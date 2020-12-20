@@ -2,10 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+html {
+    @apply text-gray-800;
+    font-family: 'Open Sans', sans-serif;
+}
+
 .component {
-    @apply m-2 p-2 rounded bg-white border-gray-200 border border-solid;
+    @apply m-2 p-4 rounded bg-white border-gray-200 border border-solid;
 }
 
 .blankComponentText {
     @apply flex flex-col items-center justify-center h-full opacity-40 text-center;
+}
+
+h3 {
+    @apply font-bold text-xl p-2;
 }

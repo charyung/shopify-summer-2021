@@ -8,6 +8,8 @@ function SearchBar(props) {
     let typingTimer = null;
 
     const search = (str) => {
+        props.setSearchStr(str);
+
         axios.get(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${str}&type=movie`)
             .then((res) => props.setSearchRes(uniqBy(res.data.Search, "imdbID")));
     }
@@ -17,6 +19,7 @@ function SearchBar(props) {
             <FontAwesomeIcon icon={faSearch} size="lg" className="mx-2"/>
             <input
                 className="flex-1"
+                placeholder="Search for a movie"
                 onChange={(e) => {
                     const searchString = e.target.value;
 
