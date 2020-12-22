@@ -9,7 +9,7 @@ function ViewSwitch(props) {
         <div className="switch">
             <input type="checkbox" id="viewSwitch" className="hidden" onChange={(e) => props.setView(e.target.checked)}/>
             <label htmlFor="viewSwitch" className="component viewSwitch rounded block relative cursor-pointer">
-                <div className={`switchBlock rounded absolute bg-yellow-400 top-2 z-10 transition-all ${props.isGrid ? "gridView" : "listView"}`}></div>
+                <div className={`switchBlock rounded absolute bg-yellow-400 z-10 transition-all ${props.isGrid ? "gridView" : "listView"}`}></div>
                 <FontAwesomeIcon
                     icon={faThLarge}
                     size="lg"

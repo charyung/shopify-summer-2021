@@ -10,7 +10,7 @@ html {
 }
 
 .component {
-    @apply m-2 p-4 rounded bg-white border-gray-200 border border-solid;
+    @apply m-2 p-4 rounded bg-white shadow-md;
 }
 
 .blankComponentText {

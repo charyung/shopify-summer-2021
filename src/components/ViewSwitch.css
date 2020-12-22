@@ -5,6 +5,7 @@
     & .switchBlock {
         width: 3rem;
         height: 2rem;
+        top: 0.5rem;
         
         &.listView {
         left: 0.5rem;

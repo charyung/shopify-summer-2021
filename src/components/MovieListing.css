@@ -1,15 +1,16 @@
 .movieItem {
-    @apply grid items-center gap-1;
-    grid-template-rows: 1fr min-content;
+    @apply m-2 p-4 rounded shadow-md text-left;
+    @apply grid gap-1;
+    grid-template-rows: min-content 1fr;
     grid-template-columns: 1fr min-content;
 
     & img {
         @apply col-start-1 col-end-3;
     }
 
-    @apply bg-gray-200 border border-gray-300; 
+    @apply bg-gray-200; 
 
     &.nominated {
-        @apply bg-yellow-100 border-yellow-200;
+        @apply bg-yellow-100;
     }
 }

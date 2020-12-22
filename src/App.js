@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faFolderOpen } from '@fortawesome/free-regular-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
+import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -29,7 +30,8 @@ function App() {
     }
 
     return (
-        <div className="p-4 lg:p-20 h-screen flex flex-col bg-gray-50">
+        <div className="p-4 lg:p-20 flex flex-col bg-gray-50 min-h-screen">
+            <img src={logo} alt="logo" className="mx-auto xl:w-2/6" />
             <SearchBar setSearchRes={setSearchRes} setSearchStr={setSearchStr} />
 
             <div className="flex align-middle">
@@ -66,11 +68,11 @@ function App() {
                     {nomItems.size === 0 ?
                         <div className="blankComponentText">
                             <FontAwesomeIcon icon={faStar} size="3x" className="text-black"/>
-                            <div className="m-1">You haven't nominated any items yet.</div>
+                            <div className="m-1">You haven't nominated any items yet &ndash; Click the star next to an item to nominate it.</div>
                         </div>
                         :
                         <>
-                            <h3>Nominations</h3>
+                            <h3>Nominations: {nomItems.size}/5</h3>
                             <div className={`grid ${isGrid ? "md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1"} transition-all`}>
                                 {Array.from(nomItems.values()).map(res => (
                                     <MovieListing data={res} key={res.imdbID} onClick={toggleMovieNomination} nominated={true} disabled={false} isGrid={isGrid} />
