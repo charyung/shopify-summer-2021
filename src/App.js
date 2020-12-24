@@ -68,7 +68,7 @@ function App() {
                     {nomItems.size === 0 ?
                         <div className="blankComponentText">
                             <FontAwesomeIcon icon={faStar} size="3x" className="text-black"/>
-                            <div className="m-1">You haven't nominated any items yet &ndash; Click a movie to nominate it.</div>
+                            <div className="m-1">You haven't nominated any items yet. Click a movie to nominate it.</div>
                         </div>
                         :
                         <>

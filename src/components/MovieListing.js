@@ -13,7 +13,7 @@ function MovieListing(props) {
             className={`
                 movieItem
                 ${props.isGrid ? "gridView" : "listView"}
-                ${props.disabled && "opacity-50 hover:opacity-50 cursor-default"}
+                ${props.disabled && "disabled opacity-50 cursor-default"}
                 ${props.nominated && "nominated"}`}>
             {props.isGrid && <img className="object-contain" alt={props.data.Title} src={props.data.Poster} />}
             <span className="title self-center">{props.data.Title}</span>
