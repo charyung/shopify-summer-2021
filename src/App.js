@@ -31,7 +31,7 @@ function App() {
 
     return (
         <div className="p-4 lg:p-20 flex flex-col bg-gray-50 min-h-screen">
-            <img src={logo} alt="logo" className="mx-auto xl:w-2/6" />
+            <img src={logo} alt="logo" className="mx-auto mb-4 xl:w-2/6" />
             <SearchBar setSearchRes={setSearchRes} setSearchStr={setSearchStr} />
 
             <div className="flex align-middle">
@@ -68,7 +68,7 @@ function App() {
                     {nomItems.size === 0 ?
                         <div className="blankComponentText">
                             <FontAwesomeIcon icon={faStar} size="3x" className="text-black"/>
-                            <div className="m-1">You haven't nominated any items yet &ndash; Click the star next to an item to nominate it.</div>
+                            <div className="m-1">You haven't nominated any items yet &ndash; Click a movie to nominate it.</div>
                         </div>
                         :
                         <>

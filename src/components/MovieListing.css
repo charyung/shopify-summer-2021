@@ -1,16 +1,63 @@
 .movieItem {
-    @apply m-2 p-4 rounded shadow-md text-left;
+    @apply m-2 p-4 rounded shadow-md hover:shadow-lg focus:shadow-none text-left;
     @apply grid gap-1;
-    grid-template-rows: min-content 1fr;
-    grid-template-columns: 1fr min-content;
-
-    & img {
-        @apply col-start-1 col-end-3;
-    }
 
     @apply bg-gray-200; 
 
     &.nominated {
         @apply bg-yellow-100;
+    }
+
+    &.gridView {
+        grid-template-rows: min-content 1fr min-content;
+        grid-template-columns: 1fr min-content;
+        @apply justify-items-center;
+
+        & img, & .title {
+            @apply col-start-1 col-end-3;
+        }
+
+        & .star {
+            @apply  self-end;
+        }
+    }
+
+    &.listView {
+        grid-template-rows: max-content;
+        grid-template-columns: fit-content(75%) 1fr min-content;
+        @apply items-center;
+
+        & .title {
+            @apply col-start-1 col-end-2;
+        }
+
+        & .year {
+            &:before {
+                content: "(";
+            }
+
+            &:after {
+                content: ")";
+            }
+        }
+    }
+
+    & .solidStar {
+        /* When switching from nominated=true to nominated=false, the colour doesn't get updated if the opacity is 0, so do 0.05 for next closest */
+        @apply opacity-5;
+
+        &.nominated {
+            @apply opacity-100;
+        }
+    }
+
+    &:hover {
+        & .solidStar:not(.disabled) {
+            @apply opacity-100;
+
+            &.nominated {
+                @apply opacity-0;
+            }
+        }
     }
 }
