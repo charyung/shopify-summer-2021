@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/shopify-summer-2021/static/css/main.63129937.chunk.css",
+    "main.js": "/shopify-summer-2021/static/js/main.0937013e.chunk.js",
+    "main.js.map": "/shopify-summer-2021/static/js/main.0937013e.chunk.js.map",
+    "runtime-main.js": "/shopify-summer-2021/static/js/runtime-main.039414f7.js",
+    "runtime-main.js.map": "/shopify-summer-2021/static/js/runtime-main.039414f7.js.map",
+    "static/js/2.476b40aa.chunk.js": "/shopify-summer-2021/static/js/2.476b40aa.chunk.js",
+    "static/js/2.476b40aa.chunk.js.map": "/shopify-summer-2021/static/js/2.476b40aa.chunk.js.map",
+    "static/js/3.c5b20d8b.chunk.js": "/shopify-summer-2021/static/js/3.c5b20d8b.chunk.js",
+    "static/js/3.c5b20d8b.chunk.js.map": "/shopify-summer-2021/static/js/3.c5b20d8b.chunk.js.map",
+    "index.html": "/shopify-summer-2021/index.html",
+    "static/css/main.63129937.chunk.css.map": "/shopify-summer-2021/static/css/main.63129937.chunk.css.map",
+    "static/js/2.476b40aa.chunk.js.LICENSE.txt": "/shopify-summer-2021/static/js/2.476b40aa.chunk.js.LICENSE.txt",
+    "static/media/logo.8ab42f29.svg": "/shopify-summer-2021/static/media/logo.8ab42f29.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.039414f7.js",
+    "static/js/2.476b40aa.chunk.js",
+    "static/css/main.63129937.chunk.css",
+    "static/js/main.0937013e.chunk.js"
+  ]
+}
