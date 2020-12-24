@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import MovieListing from './components/MovieListing';
-import SearchBar from './components/SearchBar';
-import ViewSwitch from './components/ViewSwitch'
+import MovieListing from './components/MovieListing/MovieListing';
+import SearchBar from './components/SearchBar/SearchBar';
+import ViewSwitch from './components/ViewSwitch/ViewSwitch'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faFolderOpen } from '@fortawesome/free-regular-svg-icons';
@@ -15,7 +15,7 @@ function App() {
     const [searchStr, setSearchStr] = useState(null)
     const [searchRes, setSearchRes] = useState(null);
     const [nomItems, setNomItems] = useState(new Map());
-    const [isGrid, setView] = useState(true); // list = false, grid = true
+    const [isGrid, setIsGrid] = useState(true);
 
     const toggleMovieNomination = (id, data) => {
         setNomItems(prevState => {
@@ -36,7 +36,7 @@ function App() {
 
             <div className="flex align-middle">
                 <div className={`flex-1 bg-yellow-300 m-2 p-3 rounded align-middle ${nomItems.size < 5 && "invisible"}`}>Thank you for voting!</div>
-                <ViewSwitch isGrid={isGrid} setView={setView} />
+                <ViewSwitch isGrid={isGrid} setIsGrid={setIsGrid} />
             </div>
 
             <div className="flex flex-1 flex-col-reverse sm:flex-row">
