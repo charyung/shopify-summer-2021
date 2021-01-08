@@ -8,7 +8,8 @@ function LinkButton(props) {
 
     useEffect(() => {
         const nominatedIds = Array.from(props.nomItems.keys());
-        setSharableLink(`${window.location.origin}${window.location.pathname}?nominated=${nominatedIds.join(",")}`);
+        const searchParamsString = nominatedIds.length > 0 ? `?nominated=${nominatedIds.join(",")}` : ""
+        setSharableLink(`${window.location.origin}${window.location.pathname}${searchParamsString}`);
     }, [props.nomItems]);
 
     const copySharableLink = () => {
