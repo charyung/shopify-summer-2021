@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import MovieListing from './components/MovieListing/MovieListing';
 import SearchBar from './components/SearchBar/SearchBar';
@@ -6,7 +7,7 @@ import ViewSwitch from './components/ViewSwitch/ViewSwitch'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faFolderOpen } from '@fortawesome/free-regular-svg-icons';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faLink } from '@fortawesome/free-solid-svg-icons';
 
 import logo from './logo.svg';
 import './App.css';
@@ -16,6 +17,18 @@ function App() {
     const [searchRes, setSearchRes] = useState(null);
     const [nomItems, setNomItems] = useState(new Map());
     const [isGrid, setIsGrid] = useState(true);
+
+    useEffect(() => {
+        const urlParams = (new URL(window.location)).searchParams;
+        const nominatedIds = urlParams.get("nominated").split(",");
+
+        Promise.all(nominatedIds.map(id => (
+            axios.get(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${id}&type=movie`)
+        )))
+            .then(res => {
+                res.forEach(movie => toggleMovieNomination(movie.data.imdbID, movie.data));
+            })
+    }, []);
 
     const toggleMovieNomination = (id, data) => {
         setNomItems(prevState => {
@@ -27,6 +40,11 @@ function App() {
             }
             return newNoms;
         });
+    }
+
+    const copySharableLink = () => {
+        const nominatedIds = Array.from(nomItems.keys());
+        navigator.clipboard.writeText(`${window.location.origin}${window.location.pathname}?nominated=${nominatedIds.join(",")}`);
     }
 
     return (
@@ -72,7 +90,12 @@ function App() {
                         </div>
                         :
                         <>
-                            <h3>Nominations: {nomItems.size}/5</h3>
+                            <div className="flex">
+                                <h3 className="flex-1">Nominations: {nomItems.size}/5</h3>
+                                <button onClick={copySharableLink}>
+                                    <FontAwesomeIcon icon={faLink} size="lg" className="text-black m-2 hover:text-gray-600 active:text-gray"/>
+                                </button>
+                            </div>
                             <div className={`grid ${isGrid ? "md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1"} transition-all`}>
                                 {Array.from(nomItems.values()).map(res => (
                                     <MovieListing data={res} key={res.imdbID} onClick={toggleMovieNomination} nominated={true} disabled={false} isGrid={isGrid} />
