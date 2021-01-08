@@ -3,11 +3,12 @@ import axios from 'axios';
 
 import MovieListing from './components/MovieListing/MovieListing';
 import SearchBar from './components/SearchBar/SearchBar';
-import ViewSwitch from './components/ViewSwitch/ViewSwitch'
+import ViewSwitch from './components/ViewSwitch/ViewSwitch';
+import LinkButton from './components/LinkButton/LinkButton';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faFolderOpen } from '@fortawesome/free-regular-svg-icons';
-import { faSearch, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import logo from './logo.svg';
 import './App.css';
@@ -26,8 +27,12 @@ function App() {
             axios.get(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${id}&type=movie`)
         )))
             .then(res => {
-                res.forEach(movie => toggleMovieNomination(movie.data.imdbID, movie.data));
-            })
+                setNomItems(prevState => {
+                    const newNoms = new Map(prevState);
+                    res.forEach(movie => newNoms.set(movie.data.imdbID, movie.data));
+                    return newNoms;
+                });
+            });
     }, []);
 
     const toggleMovieNomination = (id, data) => {
@@ -40,11 +45,6 @@ function App() {
             }
             return newNoms;
         });
-    }
-
-    const copySharableLink = () => {
-        const nominatedIds = Array.from(nomItems.keys());
-        navigator.clipboard.writeText(`${window.location.origin}${window.location.pathname}?nominated=${nominatedIds.join(",")}`);
     }
 
     return (
@@ -92,9 +92,7 @@ function App() {
                         <>
                             <div className="flex">
                                 <h3 className="flex-1">Nominations: {nomItems.size}/5</h3>
-                                <button onClick={copySharableLink}>
-                                    <FontAwesomeIcon icon={faLink} size="lg" className="text-black m-2 hover:text-gray-600 active:text-gray"/>
-                                </button>
+                                <LinkButton nomItems={nomItems} />
                             </div>
                             <div className={`grid ${isGrid ? "md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1"} transition-all`}>
                                 {Array.from(nomItems.values()).map(res => (
