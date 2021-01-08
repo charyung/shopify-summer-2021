@@ -5,12 +5,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 html {
-    @apply text-gray-800;
+    @apply text-gray-700;
     font-family: 'Open Sans', sans-serif;
+    font-size: smaller;
 }
 
 .component {
-    @apply m-2 p-4 rounded bg-white shadow-md;
+    @apply m-2 rounded bg-white border;
+
+    &:not(.thin-padding) {
+        @apply p-4;
+    }
 }
 
 .blankComponentText {
@@ -20,3 +25,11 @@ html {
 h3 {
     @apply font-bold text-xl p-2;
 }
+
+/*button {
+    @apply shadow-md;
+
+    &:active {
+        @apply shadow-none;
+    }
+}*/

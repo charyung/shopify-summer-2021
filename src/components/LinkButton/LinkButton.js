@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { faClone } from '@fortawesome/free-solid-svg-icons';
 
 function LinkButton(props) {
-    const copySharableLink = () => {
+    const [sharableLink, setSharableLink] = useState(`${window.location.origin}${window.location.pathname}`);
+
+    useEffect(() => {
         const nominatedIds = Array.from(props.nomItems.keys());
-        navigator.clipboard.writeText(`${window.location.origin}${window.location.pathname}?nominated=${nominatedIds.join(",")}`);
+        setSharableLink(`${window.location.origin}${window.location.pathname}?nominated=${nominatedIds.join(",")}`);
+    }, [props.nomItems]);
+
+    const copySharableLink = () => {
+        navigator.clipboard.writeText(sharableLink);
     }
 
     return(
-        <button onClick={copySharableLink}>
-            <FontAwesomeIcon icon={faLink} size="lg" className="text-black m-2 hover:text-gray-600 active:text-gray"/>
-        </button>
+        <div className="component thin-padding flex flex-1">
+            <input className="flex-1 m-2" readOnly={true} value={sharableLink} />
+            <button onClick={copySharableLink} className="bg-yellow-400 rounded flex m-2">
+                <FontAwesomeIcon icon={faClone} className="text-white m-2"/>
+            </button>
+        </div>
     )
 }
 

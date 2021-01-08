@@ -53,7 +53,8 @@ function App() {
             <SearchBar setSearchRes={setSearchRes} setSearchStr={setSearchStr} />
 
             <div className="flex align-middle">
-                <div className={`flex-1 bg-yellow-300 m-2 p-3 rounded align-middle ${nomItems.size < 5 && "invisible"}`}>Thank you for voting!</div>
+                {/*<div className={`flex-1 bg-yellow-300 m-2 p-3 rounded align-middle ${nomItems.size < 5 && "invisible"}`}>Thank you for voting!</div>*/}
+                <LinkButton nomItems={nomItems} />
                 <ViewSwitch isGrid={isGrid} setIsGrid={setIsGrid} />
             </div>
 
@@ -90,10 +91,7 @@ function App() {
                         </div>
                         :
                         <>
-                            <div className="flex">
-                                <h3 className="flex-1">Nominations: {nomItems.size}/5</h3>
-                                <LinkButton nomItems={nomItems} />
-                            </div>
+                            <h3 className="flex-1">Nominations: {nomItems.size}/5</h3>
                             <div className={`grid ${isGrid ? "md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1"} transition-all`}>
                                 {Array.from(nomItems.values()).map(res => (
                                     <MovieListing data={res} key={res.imdbID} onClick={toggleMovieNomination} nominated={true} disabled={false} isGrid={isGrid} />

@@ -1,6 +1,7 @@
 .viewSwitch {
     width: 7rem;
     height: 3rem;
+    box-sizing: content-box;
 
     & .switchBlock {
         width: 3rem;

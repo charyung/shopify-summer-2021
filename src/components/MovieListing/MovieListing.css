@@ -1,15 +1,15 @@
 .movieItem {
-    @apply m-2 p-4 rounded shadow-md text-left;
+    @apply m-2 p-4 rounded border text-left;
     @apply grid gap-1;
 
     @apply bg-gray-200; 
 
     &.not(.disabled) {
-        @apply hover:shadow-lg focus:shadow-none;
+        @apply hover:bg-gray-600;
     }
 
     &.nominated {
-        @apply bg-yellow-100;
+        @apply bg-yellow-100 border-yellow-300;
     }
 
     &.gridView {
@@ -22,7 +22,7 @@
         }
 
         & .star {
-            @apply  self-end;
+            @apply self-end;
         }
     }
 

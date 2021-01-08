@@ -8,7 +8,7 @@ function ViewSwitch(props) {
     return (
         <div className="switch">
             <input type="checkbox" id="viewSwitch" className="hidden" checked={props.isGrid} onChange={(e) => {console.log(e.target.checked); props.setIsGrid(e.target.checked)}}/>
-            <label htmlFor="viewSwitch" className="component viewSwitch rounded block relative cursor-pointer">
+            <label htmlFor="viewSwitch" className="component viewSwitch thin-padding rounded block relative cursor-pointer">
                 <div className={`switchBlock rounded absolute bg-yellow-400 z-10 transition-all ${props.isGrid ? "gridView" : "listView"}`}></div>
                 <FontAwesomeIcon
                     icon={faThLarge}
