@@ -8,12 +8,19 @@ function LinkButton(props) {
 
     useEffect(() => {
         const nominatedIds = Array.from(props.nomItems.keys());
-        const searchParamsString = nominatedIds.length > 0 ? `?nominated=${nominatedIds.join(",")}` : ""
+        const searchParamsString = nominatedIds.length > 0 ? `?nominated=${nominatedIds.join(",")}` : "";
         setSharableLink(`${window.location.origin}${window.location.pathname}${searchParamsString}`);
     }, [props.nomItems]);
 
     const copySharableLink = () => {
-        navigator.clipboard.writeText(sharableLink);
+        navigator.clipboard.writeText(sharableLink)
+            .then(() => {
+                props.setCopyBannerVisible(true);
+                // Auto close after a short time
+                setTimeout(() => {
+                    props.setCopyBannerVisible(false);
+                }, 2000);
+            });
     }
 
     return(

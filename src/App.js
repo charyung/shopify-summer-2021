@@ -5,6 +5,7 @@ import MovieListing from './components/MovieListing/MovieListing';
 import SearchBar from './components/SearchBar/SearchBar';
 import ViewSwitch from './components/ViewSwitch/ViewSwitch';
 import LinkButton from './components/LinkButton/LinkButton';
+import TextBanner from './components/TextBanner/TextBanner';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faFolderOpen } from '@fortawesome/free-regular-svg-icons';
@@ -13,17 +14,22 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import logo from './logo.svg';
 import './App.css';
 
+const MAX_NOMINATION_AMOUNT = 5;
+
 function App() {
     const [searchStr, setSearchStr] = useState(null)
     const [searchRes, setSearchRes] = useState(null);
     const [nomItems, setNomItems] = useState(new Map());
     const [isGrid, setIsGrid] = useState(true);
 
+    const [votingBannerVisible, setVotingBannerVisible] = useState(false);
+    const [copyBannerVisible, setCopyBannerVisible] = useState(false);
+
     useEffect(() => {
         const urlParams = (new URL(window.location)).searchParams;
         const nominatedIds = urlParams.get("nominated")?.split(",");
 
-        if (!nominatedIds[0]) return;
+        if (!nominatedIds || !nominatedIds[0]) return;
 
         Promise.all(nominatedIds.map(id => (
             axios.get(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${id}&type=movie`)
@@ -49,14 +55,20 @@ function App() {
         });
     }
 
+    useEffect(() => {
+        setVotingBannerVisible(nomItems.size === MAX_NOMINATION_AMOUNT);
+    }, [nomItems]);
+
     return (
         <div className="p-4 lg:p-20 flex flex-col bg-gray-50 min-h-screen">
+            <TextBanner text="Thank you for voting!" visible={votingBannerVisible} setVisibility={setVotingBannerVisible} backgroundColourClass="bg-yellow-300"/>
+            <TextBanner text="Link copied." visible={copyBannerVisible} setVisibility={setCopyBannerVisible} />
+
             <img src={logo} alt="logo" className="mx-auto mb-4 xl:w-2/6" />
             <SearchBar setSearchRes={setSearchRes} setSearchStr={setSearchStr} />
 
             <div className="flex align-middle">
-                {/*<div className={`flex-1 bg-yellow-300 m-2 p-3 rounded align-middle ${nomItems.size < 5 && "invisible"}`}>Thank you for voting!</div>*/}
-                <LinkButton nomItems={nomItems} />
+                <LinkButton nomItems={nomItems} setCopyBannerVisible={setCopyBannerVisible} />
                 <ViewSwitch isGrid={isGrid} setIsGrid={setIsGrid} />
             </div>
 
@@ -78,7 +90,7 @@ function App() {
                             <h3>Search results for: "{searchStr}"</h3>
                             <div className={`flex-1 grid ${isGrid ? "md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1"} transition-all`}>
                                 {searchRes.map(res => (
-                                    <MovieListing data={res} key={res.imdbID} onClick={toggleMovieNomination} disabled={nomItems.size >= 5 || nomItems.has(res.imdbID)} nominated={nomItems.has(res.imdbID)} isGrid={isGrid} />
+                                    <MovieListing data={res} key={res.imdbID} onClick={toggleMovieNomination} disabled={nomItems.size >= MAX_NOMINATION_AMOUNT || nomItems.has(res.imdbID)} nominated={nomItems.has(res.imdbID)} isGrid={isGrid} />
                                 ))}
                             </div>
                         </>
@@ -93,7 +105,7 @@ function App() {
                         </div>
                         :
                         <>
-                            <h3 className="flex-1">Nominations: {nomItems.size}/5</h3>
+                            <h3 className="flex-1">Nominations: {nomItems.size}/{MAX_NOMINATION_AMOUNT}</h3>
                             <div className={`grid ${isGrid ? "md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1"} transition-all`}>
                                 {Array.from(nomItems.values()).map(res => (
                                     <MovieListing data={res} key={res.imdbID} onClick={toggleMovieNomination} nominated={true} disabled={false} isGrid={isGrid} />
