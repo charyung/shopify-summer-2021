@@ -32,7 +32,7 @@ function App() {
         if (!nominatedIds || !nominatedIds[0]) return;
 
         Promise.all(nominatedIds.map(id => (
-            axios.get(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${id}&type=movie`)
+            axios.get(`https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${id}&type=movie`)
         )))
             .then(res => {
                 setNomItems(prevState => {

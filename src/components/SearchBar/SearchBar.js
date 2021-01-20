@@ -10,7 +10,7 @@ function SearchBar(props) {
     const search = (str) => {
         props.setSearchStr(str);
 
-        axios.get(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${str}&type=movie`)
+        axios.get(`https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${str}&type=movie`)
             .then((res) => props.setSearchRes(uniqBy(res.data.Search, "imdbID")));
     }
 
